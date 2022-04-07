@@ -1,0 +1,37 @@
+{
+    "UNKNOWN_ERROR": {
+        "code": "SW-0000",
+        "status": 500,
+        "message": "Error desconocido"
+    },
+    "internal_DB_Connection_Failed": {
+        "code": "SW-0001",
+        "status": 500,
+        "message": "Error to try connect to database"
+    },
+    "required_token": {
+        "code": "SW-0002",
+        "status": 401,
+        "message": "The JWT is required"
+    },
+    "required_user_name": {
+        "code": "SW-0003",
+        "status": 400,
+        "message": "The user name is required"
+    },
+    "required_user_email": {
+        "code": "SW-0004",
+        "status": 400,
+        "message": "The user email is required"
+    },
+    "user_email_format_error": {
+        "code": "SW-0005",
+        "status": 400,
+        "message": "The user email is bad"
+    },
+    "error_to_do_crud_on_db": {
+        "code": "SW-0006",
+        "status": 500,
+        "message": "There was a error try connect to do a CRUD in the DataBase"
+    }
+}

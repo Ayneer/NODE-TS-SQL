@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "removeComments": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "target": "es2016",
+    "rootDir": "./",
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "include": ["src/**/*", "index.ts"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}
