@@ -12,13 +12,13 @@ import { healthCheckMiddleware } from './middlewares/healthCheck.middleware';
 const healtCheckRoute = Router();
 healtCheckRoute.get('/', healthCheckMiddleware, healthCheckController);
 
-const createUserRoute = Router();
-createUserRoute.post('/', createUserMiddleware, createUserController);
-createUserRoute.get('/', getAllUsersController);
-createUserRoute.get('/:email', getUserByEmailMiddleware, getUserByEmaiController);
-createUserRoute.delete('/:email', getUserByEmailMiddleware, deleteUserByEmaiController);
+const userRoute = Router();
+userRoute.post('/', createUserMiddleware, createUserController);
+userRoute.get('/', getAllUsersController);
+userRoute.get('/:email', getUserByEmailMiddleware, getUserByEmaiController);
+userRoute.delete('/:email', getUserByEmailMiddleware, deleteUserByEmaiController);
 
 export default {
     healtCheckRoute,
-    createUserRoute
+    userRoute
 }

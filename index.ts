@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: '5mb' }));
 
 //Routes
 app.use('/healthcheck', routes.healtCheckRoute);
-app.use('/users', routes.createUserRoute);
+app.use('/users', routes.userRoute);
 
 //Error Handler Middleware
 app.use(errorHandler);
