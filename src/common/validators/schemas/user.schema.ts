@@ -15,6 +15,8 @@ export const createUserSchema = Joi.object({
             .messages(getParamsErrorMessages('user_name')),
         email: emailJoi
     })
+    .required()
+    .messages(getParamsErrorMessages('user_object'))
 });
 
 export const getUserByEmailSchema = Joi.object({

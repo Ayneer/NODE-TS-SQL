@@ -33,5 +33,10 @@
         "code": "SW-0006",
         "status": 500,
         "message": "There was a error try connect to do a CRUD in the DataBase"
+    },
+    "required_user_object": {
+        "code": "SW-0007",
+        "status": 400,
+        "message": "The user data is required or has a bad format"
     }
 }
