@@ -53,5 +53,15 @@
         "code": "SW-0010",
         "status": 400,
         "message": "The user already exist"
+    },
+    "invalid_email_password": {
+        "code": "SW-0011",
+        "status": 400,
+        "message": "Error to sign in, invalid user/password"
+    },
+    "user_not_exist": {
+        "code": "SW-0012",
+        "status": 400,
+        "message": "The user does not exist"
     }
 }

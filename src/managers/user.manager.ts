@@ -1,12 +1,10 @@
 import { createUser, getAllUsers, getUserByEmail, deleteUserByEmail } from '../common/dataBase/controllers/user.controller';
 import { Users } from '../common/dataBase/models/user.model';
-import { generateBcryptHash } from '../common/utils';
 import { validateAlreadyUserExist } from './utils';
 
 export const createUserManager = async (user: Partial<Users>): Promise<Partial<Users>> => {
     try {
-        await validateAlreadyUserExist(user.email);
-        user.password = await generateBcryptHash(user.password);
+        await validateAlreadyUserExist(user.email, true, false);
         const newUser = (await createUser(user)).toJSON();
         delete newUser['password'];
         return newUser;
@@ -25,7 +23,11 @@ export const getAllUsersManager = async (): Promise<Partial<Users>[]> => {
 
 export const getUserByEmailManager = async (email: string): Promise<Partial<Users>> => {
     try {
-        return await getUserByEmail(email);
+        const user = await getUserByEmail(email);
+        if(!user?.email){
+            throw new Error('user_not_exist');
+        }
+        return user;
     } catch (error) {
         throw new Error(error.message);
     }

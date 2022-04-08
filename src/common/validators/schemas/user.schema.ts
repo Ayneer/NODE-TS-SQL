@@ -1,11 +1,16 @@
 import Joi from 'joi';
 import { getParamsErrorMessages, patternEmail } from '../utils.schema';
 
-const emailJoi = Joi
+export const emailJoi = Joi
     .string()
     .regex(patternEmail)
     .required()
     .messages(getParamsErrorMessages('user_email'));
+
+export const passwordJoi = Joi
+    .string()
+    .required()
+    .messages(getParamsErrorMessages('user_password'));
 
 export const createUserSchema = Joi.object({
     data: Joi.object({
@@ -14,13 +19,10 @@ export const createUserSchema = Joi.object({
             .required()
             .messages(getParamsErrorMessages('user_name')),
         email: emailJoi,
-        password: Joi
-            .string()
-            .required()
-            .messages(getParamsErrorMessages('user_password')),
+        password: passwordJoi,
     })
-    .required()
-    .messages(getParamsErrorMessages('user_object'))
+        .required()
+        .messages(getParamsErrorMessages('user_object'))
 });
 
 export const getUserByEmailSchema = Joi.object({

@@ -110,6 +110,15 @@ describe('User Manager Suit Tests', () => {
             expect(getUserByEmail).toHaveBeenCalled();
             expect(getUserByEmail).toHaveBeenCalledWith(userData.email);
         });
+
+        test('should not get a user when getUserByEmailManager is called and the user does not exist', async () => {
+            (getUserByEmail as jest.Mock).mockImplementation(() => Promise.resolve({}));
+
+            await expect(() => getUserByEmailManager(userData.email)).rejects.toThrow();
+            await expect(() => getUserByEmailManager(userData.email)).rejects.toThrowError('user_not_exist');
+            expect(getUserByEmail).toHaveBeenCalled();
+            expect(getUserByEmail).toHaveBeenCalledWith(userData.email);
+        });
     });
 
     describe('Delete User By Email Tests', () => {

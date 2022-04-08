@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import {
-    createUserController,
     deleteUserByEmaiController,
     getAllUsersController,
     getUserByEmaiController
@@ -8,17 +7,23 @@ import {
 import { healthCheckController } from './controllers/healthCheck.controller';
 import { createUserMiddleware, getUserByEmailMiddleware } from './middlewares/user.middleware';
 import { healthCheckMiddleware } from './middlewares/healthCheck.middleware';
+import { signInController, signUpController } from './controllers/auth.controller';
+import { signInMiddleware } from './middlewares/auth.middleware';
 
 const healtCheckRoute = Router();
 healtCheckRoute.get('/', healthCheckMiddleware, healthCheckController);
 
 const userRoute = Router();
-userRoute.post('/', createUserMiddleware, createUserController);
 userRoute.get('/', getAllUsersController);
 userRoute.get('/:email', getUserByEmailMiddleware, getUserByEmaiController);
 userRoute.delete('/:email', getUserByEmailMiddleware, deleteUserByEmaiController);
 
+const authRoute = Router();
+authRoute.post('/signin', signInMiddleware, signInController);
+authRoute.post('/signup', createUserMiddleware, signUpController);
+
 export default {
     healtCheckRoute,
-    userRoute
+    userRoute,
+    authRoute
 }
