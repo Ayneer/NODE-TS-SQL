@@ -97,7 +97,8 @@ describe('User Manager Suit Tests', () => {
 
             const user = await getUserByEmailManager(userData.email);
 
-            expect(user).toEqual(mockUser);
+            expect(user.name).toEqual(mockUser.name);
+            expect(user.password).not.toBeDefined();
             expect(getUserByEmail).toHaveBeenCalled();
             expect(getUserByEmail).toHaveBeenCalledWith(userData.email);
         });

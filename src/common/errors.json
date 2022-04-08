@@ -63,5 +63,20 @@
         "code": "SW-0012",
         "status": 400,
         "message": "The user does not exist"
+    },
+    "token_generation_error": {
+        "code": "SW-0013",
+        "status": 500,
+        "message": "There was a error in session token generation process"
+    },
+    "unauthorized": {
+        "code": "SW-0015",
+        "status": 401,
+        "message": "Unauthorized"
+    },
+    "invalid_token": {
+        "code": "SW-0015",
+        "status": 401,
+        "message": "Invalid session token"
     }
 }

@@ -17,6 +17,14 @@ export enum HttpCodeEnum {
     SERVER_UNAVAILABLE = 503
 }
 
+export const ONE_THOUSEN = 1000;
+
+export const SIXTY = 60;
+
+export const ONE = 1;
+
+export const JWT_SECRET = process.env.JWT_SECRET || 'see-word-Ax32Wx2sxoiuhnf334$RF3sibd423_';
+
 export const DB_SCHEMA_NAME = 'sw';
 
 export const DB_TABLES = {

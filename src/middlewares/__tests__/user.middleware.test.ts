@@ -1,6 +1,6 @@
 import { getMockReq, getMockRes } from '@jest-mock/express';
-import { createUserMiddleware, getUserByEmailMiddleware } from '../user.middleware';
-import { createUserSchema, getUserByEmailSchema } from '../../common/validators/schemas/user.schema';
+import { createUserMiddleware } from '../user.middleware';
+import { createUserSchema } from '../../common/validators/schemas/user.schema';
 
 const { mockClear } = getMockRes();
 const mockNext = jest.fn();
@@ -14,7 +14,6 @@ const userMock = {
 
 describe('User Middleware Suit Tests', () => {
     let spyJoi: jest.SpyInstance;
-    let spyJoi2: jest.SpyInstance;
 
     afterEach(() => {
         jest.clearAllMocks();
@@ -23,7 +22,6 @@ describe('User Middleware Suit Tests', () => {
     beforeAll(() => {
         mockClear();
         spyJoi = jest.spyOn(createUserSchema, 'validate');
-        spyJoi2 = jest.spyOn(getUserByEmailSchema, 'validate');
     });
 
     describe('Create User Middleware Tests', () => {
@@ -48,32 +46,5 @@ describe('User Middleware Suit Tests', () => {
             expect(spyJoi).toHaveBeenCalledWith({});
             expect(mockNext).not.toHaveBeenCalled();
         });
-    });
-
-    describe('Get User By Email Middleware Tests', () => {
-        test('Should call the next function when getUserByEmailMiddleware is called', () => {
-            const { res: mockRes } = getMockRes();
-            const mockEmail = userMock.data.email;
-            const params = { params: { email: mockEmail } };
-            const mockReq = getMockReq(params);
-
-            getUserByEmailMiddleware(mockReq, mockRes, mockNext);
-
-            expect(spyJoi2).toHaveBeenCalled();
-            expect(spyJoi2).toHaveBeenCalledWith(params);
-            expect(mockNext).toHaveBeenCalled();
-        });
-
-        test('Should not call the next function when getUserByEmailMiddleware is called', () => {
-            const { res: mockRes } = getMockRes();
-            const mockReq = getMockReq({ params: {} });
-
-            expect(() => getUserByEmailMiddleware(mockReq, mockRes, mockNext)).toThrow();
-            expect(() => getUserByEmailMiddleware(mockReq, mockRes, mockNext)).toThrowError('required_user_email');
-            expect(spyJoi2).toHaveBeenCalled();
-            expect(spyJoi2).toHaveBeenCalledWith({ params: {} });
-            expect(mockNext).not.toHaveBeenCalled();
-        });
-
     });
 });

@@ -2,11 +2,13 @@ import { createUser, getAllUsers, getUserByEmail, deleteUserByEmail } from '../c
 import { Users } from '../common/dataBase/models/user.model';
 import { validateAlreadyUserExist } from './utils';
 
+const PASSWORD_KEY = 'password';
+
 export const createUserManager = async (user: Partial<Users>): Promise<Partial<Users>> => {
     try {
         await validateAlreadyUserExist(user.email, true, false);
         const newUser = (await createUser(user)).toJSON();
-        delete newUser['password'];
+        delete newUser[PASSWORD_KEY];
         return newUser;
     } catch (error) {
         throw new Error(error.message);
@@ -15,7 +17,10 @@ export const createUserManager = async (user: Partial<Users>): Promise<Partial<U
 
 export const getAllUsersManager = async (): Promise<Partial<Users>[]> => {
     try {
-        return await getAllUsers();
+        return (await getAllUsers()).map(user => {
+            delete user[PASSWORD_KEY];
+            return user;
+        });
     } catch (error) {
         throw new Error(error.message);
     }
@@ -24,9 +29,11 @@ export const getAllUsersManager = async (): Promise<Partial<Users>[]> => {
 export const getUserByEmailManager = async (email: string): Promise<Partial<Users>> => {
     try {
         const user = await getUserByEmail(email);
-        if(!user?.email){
+        if (!user?.email) {
             throw new Error('user_not_exist');
         }
+        user.toJSON();
+        delete user[PASSWORD_KEY];
         return user;
     } catch (error) {
         throw new Error(error.message);

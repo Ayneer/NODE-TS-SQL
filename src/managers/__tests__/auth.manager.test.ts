@@ -1,5 +1,5 @@
 import { Users } from '../../common/dataBase/models/user.model';
-import { compareBcryptHash, generateBcryptHash } from '../../common/utils';
+import { compareBcryptHash, generateBcryptHash, generateJWT } from '../../common/utils';
 import { signInByEmailAndPasswordManager, signUpUserManager } from '../auth.manager';
 import { getUserByEmailManager, createUserManager } from '../user.manager';
 
@@ -10,7 +10,8 @@ jest.mock('../user.manager', () => ({
 
 jest.mock('../../common/utils', () => ({
     compareBcryptHash: jest.fn(),
-    generateBcryptHash: jest.fn()
+    generateBcryptHash: jest.fn(),
+    generateJWT: jest.fn()
 }));
 
 const userData = {
@@ -34,11 +35,12 @@ describe('Auth Manager Suit Tests', () => {
             const { email, password, name } = mockUser;
             (getUserByEmailManager as jest.Mock).mockImplementation(() => Promise.resolve(mockUser));
             (compareBcryptHash as jest.Mock).mockImplementation(() => Promise.resolve(true));
+            (generateJWT as jest.Mock).mockImplementation(() => 'abc');
 
             const userSignId = await signInByEmailAndPasswordManager(email, password);
 
             expect(userSignId.user).toEqual({ name });
-            expect(userSignId.tocken).toBe('abc');
+            expect(userSignId.token).toBe('abc');
             expect(getUserByEmailManager).toHaveBeenCalled();
             expect(getUserByEmailManager).toHaveBeenCalledWith(email);
             expect(compareBcryptHash).toHaveBeenCalled();
@@ -76,11 +78,12 @@ describe('Auth Manager Suit Tests', () => {
             const { password } = mockUser;
             (createUserManager as jest.Mock).mockImplementation(() => Promise.resolve(mockUser));
             (generateBcryptHash as jest.Mock).mockImplementation(() => Promise.resolve('12345ABC'));
+            (generateJWT as jest.Mock).mockImplementation(() => 'abc');
 
             const userSignUd = await signUpUserManager(mockUser);
 
             expect(userSignUd.user).toEqual({ ...mockUser, password: '12345ABC' });
-            expect(userSignUd.tocken).toBe('abc');
+            expect(userSignUd.token).toBe('abc');
             expect(createUserManager).toHaveBeenCalled();
             expect(createUserManager).toHaveBeenCalledWith({ ...mockUser, password: '12345ABC' });
             expect(generateBcryptHash).toHaveBeenCalled();

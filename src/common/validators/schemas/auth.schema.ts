@@ -10,3 +10,10 @@ export const signInSchema = Joi.object({
         .required()
         .messages(getParamsErrorMessages('user_object'))
 });
+
+export const tokenSchema = Joi.object({
+    authorization: Joi
+        .string()
+        .required()
+        .messages(getParamsErrorMessages('unauthorized'))
+}).unknown(true);

@@ -1,6 +1,6 @@
 import { SignInModel } from '../common/models/auth.model';
 import { getUserByEmailManager, createUserManager } from './user.manager';
-import { compareBcryptHash, generateBcryptHash } from '../common/utils';
+import { compareBcryptHash, generateBcryptHash, generateJWT } from '../common/utils';
 import { Users } from '../common/dataBase/models/user.model';
 
 export const signInByEmailAndPasswordManager = async (email: string, password: string): Promise<SignInModel> => {
@@ -13,7 +13,7 @@ export const signInByEmailAndPasswordManager = async (email: string, password: s
             user: {
                 name
             },
-            tocken: 'abc'
+            token: generateJWT({ email })
         }
     } catch (error) {
         throw new Error(error.message);
@@ -26,7 +26,7 @@ export const signUpUserManager = async (user: Partial<Users>): Promise<SignInMod
         const createdUser = await createUserManager(user);
         return {
             user: createdUser,
-            tocken: 'abc'
+            token: generateJWT({ email: user.email })
         }
     } catch (error) {
         throw new Error(error.message);

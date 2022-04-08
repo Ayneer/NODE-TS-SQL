@@ -19,7 +19,8 @@ export const getAllUsersController: RequestHandler = async (req, res, next) => {
 
 export const getUserByEmaiController: RequestHandler = async (req, res, next) => {
     try {
-        const response = await getUserByEmailManager(req.params.email);
+        const { email } = req.body;
+        const response = await getUserByEmailManager(email);
         res.status(HttpCodeEnum.SUCCESS)
             .json(requestResponse(response));
     } catch (error) {
@@ -29,7 +30,8 @@ export const getUserByEmaiController: RequestHandler = async (req, res, next) =>
 
 export const deleteUserByEmaiController: RequestHandler = async (req, res, next) => {
     try {
-        await deleteUserByEmailManager(req.params.email);
+        const { email } = req.body;
+        await deleteUserByEmailManager(email);
         res.status(HttpCodeEnum.SUCCESS)
             .json(requestResponse({}));
     } catch (error) {
