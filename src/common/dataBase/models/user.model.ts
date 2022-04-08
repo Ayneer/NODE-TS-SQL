@@ -7,6 +7,7 @@ class Users extends Model {
     id: number;
     name: string;
     email: string;
+    password: string;
 }
 
 const userEntity = {
@@ -21,6 +22,10 @@ const userEntity = {
     email: {
         type: STRING,
         primaryKey: true,
+        allowNull: false
+    },
+    password: {
+        type: STRING,
         allowNull: false
     }
 };

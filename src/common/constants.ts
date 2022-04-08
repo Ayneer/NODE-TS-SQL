@@ -6,6 +6,7 @@ export const DB_CONNECTION = {
     port: process.env.DB_PORT || '5432',
     database: process.env.DB_NAME || 'test-sw'
 }
+export const BCRYPT_SALT: number = Number.parseInt(process.env.BCRYPT_SALT) || 10;
 export enum HttpCodeEnum {
     SUCCESS = 200,
     BAD_REQUEST = 400,

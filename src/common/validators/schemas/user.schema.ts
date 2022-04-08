@@ -13,7 +13,11 @@ export const createUserSchema = Joi.object({
             .string()
             .required()
             .messages(getParamsErrorMessages('user_name')),
-        email: emailJoi
+        email: emailJoi,
+        password: Joi
+            .string()
+            .required()
+            .messages(getParamsErrorMessages('user_password')),
     })
     .required()
     .messages(getParamsErrorMessages('user_object'))

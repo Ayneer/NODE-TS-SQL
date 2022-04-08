@@ -7,7 +7,8 @@ const mockNext = jest.fn();
 const userMock = {
     data: {
         name: 'mockName',
-        email: 'mockEmail@mock.com'
+        email: 'mockEmail@mock.com',
+        password: 'mockpassword'
     }
 };
 

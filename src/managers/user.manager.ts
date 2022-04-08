@@ -1,9 +1,15 @@
 import { createUser, getAllUsers, getUserByEmail, deleteUserByEmail } from '../common/dataBase/controllers/user.controller';
 import { Users } from '../common/dataBase/models/user.model';
+import { generateBcryptHash } from '../common/utils';
+import { validateAlreadyUserExist } from './utils';
 
 export const createUserManager = async (user: Partial<Users>): Promise<Partial<Users>> => {
     try {
-        return (await createUser(user)).toJSON();
+        await validateAlreadyUserExist(user.email);
+        user.password = await generateBcryptHash(user.password);
+        const newUser = (await createUser(user)).toJSON();
+        delete newUser['password'];
+        return newUser;
     } catch (error) {
         throw new Error(error.message);
     }

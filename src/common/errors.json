@@ -2,7 +2,7 @@
     "UNKNOWN_ERROR": {
         "code": "SW-0000",
         "status": 500,
-        "message": "Error desconocido"
+        "message": "Unknown Error"
     },
     "internal_DB_Connection_Failed": {
         "code": "SW-0001",
@@ -38,5 +38,20 @@
         "code": "SW-0007",
         "status": 400,
         "message": "The user data is required or has a bad format"
+    },
+    "required_user_password": {
+        "code": "SW-0008",
+        "status": 400,
+        "message": "The user password is required"
+    },
+    "generate_bcrypt_hash_error": {
+        "code": "SW-0009",
+        "status": 400,
+        "message": "There was a error with bc hash"
+    },
+    "user_already_exist": {
+        "code": "SW-0010",
+        "status": 400,
+        "message": "The user already exist"
     }
 }
