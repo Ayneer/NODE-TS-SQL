@@ -9,6 +9,8 @@ export default {
     "!**/vendor/**",
     "!**/dist/**",
     "!**/models/**",
+    "!index.ts",
+    "!src/routes.ts"
   ],
   coverageDirectory: "coverage",
   coverageProvider: "v8",

@@ -1,29 +1,41 @@
-import { Router } from 'express';
+import express from 'express';
+import bodyParser from 'body-parser';
 import {
     deleteUserByEmaiController,
     getAllUsersController,
-    getUserByEmaiController
+    getUserByEmailController
 } from './controllers/user.controller';
 import { healthCheckController } from './controllers/healthCheck.controller';
 import { createUserMiddleware } from './middlewares/user.middleware';
 import { healthCheckMiddleware } from './middlewares/healthCheck.middleware';
 import { signInController, signUpController } from './controllers/auth.controller';
 import { signInMiddleware, validateJwTokenMiddleware } from './middlewares/auth.middleware';
+import { errorHandler } from './middlewares/errorHandler.middleware';
 
-const healtCheckRoute = Router();
+const app = express();
+
+//Statics Middlewares
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '5mb' }));
+
+const healtCheckRoute = express.Router();
 healtCheckRoute.get('/', healthCheckMiddleware, healthCheckController);
 
-const userRoute = Router();
+const userRoute = express.Router();
 userRoute.get('/all', getAllUsersController);
-userRoute.get('/', validateJwTokenMiddleware, getUserByEmaiController);
+userRoute.get('/', validateJwTokenMiddleware, getUserByEmailController);
 userRoute.delete('/', validateJwTokenMiddleware, deleteUserByEmaiController);
 
-const authRoute = Router();
+const authRoute = express.Router();
 authRoute.post('/signin', signInMiddleware, signInController);
 authRoute.post('/signup', createUserMiddleware, signUpController);
 
-export default {
-    healtCheckRoute,
-    userRoute,
-    authRoute
-}
+//Routes
+app.use('/healthcheck', healtCheckRoute);
+app.use('/users', userRoute);
+app.use('/auth', authRoute);
+
+//Error Handler Middleware
+app.use(errorHandler);
+
+export default app;

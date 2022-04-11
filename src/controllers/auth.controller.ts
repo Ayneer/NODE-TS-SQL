@@ -1,9 +1,9 @@
-import { RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { HttpCodeEnum } from '../common/constants';
 import { requestResponse } from '../managers/response.manager';
 import { signInByEmailAndPasswordManager, signUpUserManager } from '../managers/auth.manager';
 
-export const signInController: RequestHandler = async (req, res, next) => {
+export const signInController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body.data;
         const response = await signInByEmailAndPasswordManager(email, password);
@@ -14,7 +14,7 @@ export const signInController: RequestHandler = async (req, res, next) => {
     }
 }
 
-export const signUpController: RequestHandler = async (req, res, next) => {
+export const signUpController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const response = await signUpUserManager(req.body.data);
         res.status(HttpCodeEnum.SUCCESS)

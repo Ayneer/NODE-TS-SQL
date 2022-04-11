@@ -1,5 +1,5 @@
 import { HttpCodeEnum } from '../common/constants';
-import { RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { requestResponse } from '../managers/response.manager';
 import {
     getAllUsersManager,
@@ -7,7 +7,7 @@ import {
     deleteUserByEmailManager
 } from '../managers/user.manager';
 
-export const getAllUsersController: RequestHandler = async (req, res, next) => {
+export const getAllUsersController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const response = await getAllUsersManager();
         res.status(HttpCodeEnum.SUCCESS)
@@ -17,7 +17,7 @@ export const getAllUsersController: RequestHandler = async (req, res, next) => {
     }
 }
 
-export const getUserByEmaiController: RequestHandler = async (req, res, next) => {
+export const getUserByEmailController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email } = req.body;
         const response = await getUserByEmailManager(email);
@@ -28,7 +28,7 @@ export const getUserByEmaiController: RequestHandler = async (req, res, next) =>
     }
 }
 
-export const deleteUserByEmaiController: RequestHandler = async (req, res, next) => {
+export const deleteUserByEmaiController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email } = req.body;
         await deleteUserByEmailManager(email);
