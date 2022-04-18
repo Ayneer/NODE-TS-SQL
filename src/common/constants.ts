@@ -1,12 +1,12 @@
 export const PORT = process.env.NODE_PORT;
 export const DB_CONNECTION = {
-    username: process.env.DB_USERNAME || 'postgres',
-    password: process.env.DB_PASSWORD || 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || '5432',
-    database: process.env.DB_NAME || 'test-sw'
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME
 }
-export const BCRYPT_SALT: number = Number.parseInt(process.env.BCRYPT_SALT) || 10;
+export const BCRYPT_SALT: number = Number.parseInt(process.env.BCRYPT_SALT);
 export enum HttpCodeEnum {
     SUCCESS = 200,
     BAD_REQUEST = 400,
@@ -23,7 +23,7 @@ export const SIXTY = 60;
 
 export const ONE = 1;
 
-export const JWT_SECRET = process.env.JWT_SECRET || 'see-word-Ax32Wx2sxoiuhnf334$RF3sibd423_';
+export const JWT_SECRET = process.env.JWT_SECRET;
 
 export const DB_SCHEMA_NAME = 'sw';
 

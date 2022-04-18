@@ -31,9 +31,9 @@ authRoute.post('/signin', signInMiddleware, signInController);
 authRoute.post('/signup', createUserMiddleware, signUpController);
 
 //Routes
-app.use('/healthcheck', healtCheckRoute);
-app.use('/users', userRoute);
-app.use('/auth', authRoute);
+app.use('/api/v1/healthcheck', healtCheckRoute);
+app.use('/api/v1/users', userRoute);
+app.use('/api/v1/auth', authRoute);
 
 //Error Handler Middleware
 app.use(errorHandler);
