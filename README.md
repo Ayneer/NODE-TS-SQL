@@ -78,6 +78,4 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
 ## API Document endpoints
     
-    swagger Spec Endpoint : http://localhost:[YOUR_LOCAL_PORT]/api-docs 
-
-    swagger-ui  Endpoint : http://localhost:[YOUR_LOCAL_PORT]/docs
+    swagger Spec Endpoint : http://localhost:[YOUR_LOCAL_PORT]/api-docs

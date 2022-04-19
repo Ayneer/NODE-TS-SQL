@@ -11,7 +11,12 @@ import { healthCheckMiddleware } from './middlewares/healthCheck.middleware';
 import { signInController, signUpController } from './controllers/auth.controller';
 import { signInMiddleware, validateJwTokenMiddleware } from './middlewares/auth.middleware';
 import { errorHandler } from './middlewares/errorHandler.middleware';
+import YAML from 'yamljs';
+import swaggerUi from 'swagger-ui-express';
+import path from 'path';
 
+const swagger_path =  path.resolve(__dirname,'../utils/swagger.yml');
+const swaggerDocument = YAML.load(swagger_path);
 const app = express();
 
 //Statics Middlewares
@@ -29,6 +34,9 @@ userRoute.delete('/', validateJwTokenMiddleware, deleteUserByEmaiController);
 const authRoute = express.Router();
 authRoute.post('/signin', signInMiddleware, signInController);
 authRoute.post('/signup', createUserMiddleware, signUpController);
+
+//Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //Routes
 app.use('/api/v1/healthcheck', healtCheckRoute);

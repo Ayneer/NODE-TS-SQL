@@ -7,6 +7,11 @@ servers:
     - url: http://localhost:8080/api/v1
       description: Local server
 components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
     schemas:
         User:
             type: object
@@ -120,17 +125,9 @@ paths:
             tags:
             - Users
             summary: Return a user data by JWT.
-            description: Require a Json Web Token to retorn the user.
-            parameters:
-                - name: Authorization
-                  in: header
-                  description: Bearer Json Web Token.
-                  required: true
-                  schema:
-                    type: object
-                    properties:
-                        Authorization:
-                            type: string
+            description: Require a Json Web Token to retorn the users.
+            security:
+                - bearerAuth: []
             responses:
                 200: # status code
                     description: A JSON of user object
@@ -156,16 +153,8 @@ paths:
             - Users
             summary: Delete a user by JWT.
             description: Require a Json Web Token to delete the user.
-            parameters:
-                - name: Authorization
-                  in: header
-                  description: Bearer Json Web Token.
-                  required: true
-                  schema:
-                    type: object
-                    properties:
-                        Authorization:
-                            type: string
+            security:
+                - bearerAuth: []
             responses:
                 200: # status code
                     description: A empty response body
